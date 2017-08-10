@@ -1,7 +1,7 @@
 package com.example.demo.web;
 
-import com.example.demo.entity.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.entity.ExternalUser;
+import com.example.demo.service.UserServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationUser {
 
     @Autowired
-    private UserRepository userRepository;
-
-
+    private UserServiceClient userServiceClient;
 
     @PostMapping("/registration")
-    public void registration(@RequestBody User user){
-           userRepository.save(user);
-
+    public void registration(@RequestBody ExternalUser user){
+        userServiceClient.createUser(user);
     }
 }
