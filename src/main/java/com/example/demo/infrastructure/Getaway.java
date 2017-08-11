@@ -3,6 +3,7 @@ package com.example.demo.infrastructure;
 import com.example.demo.entity.ExternalUser;
 import com.example.demo.entity.InternalUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,8 +15,8 @@ public class Getaway {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void post(String url , ExternalUser externalUser){
-        restTemplate.postForEntity(url,externalUser, InternalUser.class);
+    public InternalUser post(String url , ExternalUser externalUser){
+     return    restTemplate.postForEntity(url,externalUser, InternalUser.class).getBody();
     }
 
 }
