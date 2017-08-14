@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Created by yulo0717 on 8/10/2017.
  */
@@ -18,7 +20,7 @@ public class InternalUser {
     private String surname;
     private int age;
     private String firm;
-    private Characteristic characteristic;
+    private List<Characteristic> characteristic;
 
     public InternalUser(){};
 }
