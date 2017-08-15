@@ -19,18 +19,27 @@ public class UserServiceClient {
     private Getaway getaway;
 
     public InternalUser createUser(ExternalUser externalUser) {
-        List<String> l = new ArrayList<>();
-        l.add("age");
-        l.add("Cars");
+        List<String> nonUpdatedCharacteristic = getNonUpdatedCharacteristics();
         List<Characteristic> c = externalUser.getCharacteristics();
-       for (int i = 0;i<l.size();i++){
-           for (int j=0;j<c.size();j++){
-               if(c.get(j).getName().equals(l.get(i))){
-                   c.remove(j);
-               }
-           }
-       }
-        externalUser.setCharacteristics(c);
+
+        externalUser.setCharacteristics(updateListOfCharacteristicsThatWillBeChange(nonUpdatedCharacteristic,c));
     return  getaway.post("http://localhost:8080/registration",externalUser);
+    }
+
+    private List<Characteristic> updateListOfCharacteristicsThatWillBeChange(List<String> nonUpdatedCharacteristic, List<Characteristic> allUsersCharacteristics) {
+        for (int i = 0; i < nonUpdatedCharacteristic.size(); i++) {
+            for (int j = 0; j < allUsersCharacteristics.size(); j++) {
+                if (allUsersCharacteristics.get(j).getName().equals(nonUpdatedCharacteristic.get(i))) {
+                    allUsersCharacteristics.remove(j);
+                }
+            }
+        }
+        return allUsersCharacteristics;
+    }
+    private List<String> getNonUpdatedCharacteristics() {
+        List<String> characteristics = new ArrayList<>();
+        characteristics.add("Cars");
+        characteristics.add("Surname");
+        return characteristics;
     }
 }
